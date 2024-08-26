@@ -18,6 +18,7 @@ app.use(pretty({ query: 'pretty'}));
 app.use(bodyParser.urlencoded({ extended: false}));
 app.use(bodyParser.json());
 //render static files from client folder
+app.use(express.static('client'));
 //create endpoint for route '/api/albums' that returns all the albums(GET request)
 //create endpoint for route '/api/albums/:albumID' that returns the album with that id(GET request)
     //find the album by it's id
