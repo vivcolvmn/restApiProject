@@ -11,6 +11,7 @@ const port = 5000;
 //let the server know what directory we're working on
 const __dirname = path.resolve();
 //configure cors middleware
+app.use(cors());
 //configure express-prettify middleware for working with JSON
 //configure body parser middleware
 //render static files from client folder
