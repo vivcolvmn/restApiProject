@@ -14,7 +14,7 @@ const PORT = 5000;
 const passWord = process.env.PASSWORD
 
 const pool = new Pool({
-    user: 'vivcolvmn',
+    user: 'postgres',
     host: 'localhost',
     database: 'music_library',
     password: passWord,
