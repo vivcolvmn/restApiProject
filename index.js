@@ -9,6 +9,7 @@ import pretty from 'express-prettify';
 const app = express();
 const port = 5000;
 //let the server know what directory we're working on
+const __dirname = path.resolve();
 //configure cors middleware
 //configure express-prettify middleware for working with JSON
 //configure body parser middleware
