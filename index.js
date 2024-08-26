@@ -53,9 +53,11 @@ app.post('/api/albums', (req, res) => {
     res.status(201).json(newAlbum);
 })
 //create endpoint for the route '/api/albums/:albumID' that updates existing album(PUT request)
+app.put('/api/albums/:albumID', (req, res) => {
     //find album by id
     //if album found, update properties with data from req body
     //repond with updated album, otherwise return 404 error
+})
 //create endpoint for route '/api/albums/:albumID' that deletes an album(DELETE request)
     //find index of album by id
     //if album found, remove from array
