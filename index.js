@@ -69,9 +69,11 @@ app.put('/api/albums/:albumID', (req, res) => {
     }
 });
 //create endpoint for route '/api/albums/:albumID' that deletes an album(DELETE request)
+app.delete('/api/albums/:albumID', (req, res) => {
     //find index of album by id
     //if album found, remove from array
     //repond with deleted album
+})
 //create endpoint for route '/' for homepage
     //send response to open homepage of (future) 'index.html'
 //start the server
