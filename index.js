@@ -15,6 +15,8 @@ app.use(cors());
 //configure express-prettify middleware for working with JSON
 app.use(pretty({ query: 'pretty'}));
 //configure body parser middleware
+app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.json());
 //render static files from client folder
 //create endpoint for route '/api/albums' that returns all the albums(GET request)
 //create endpoint for route '/api/albums/:albumID' that returns the album with that id(GET request)
