@@ -8,7 +8,7 @@ import pretty from 'express-prettify';
 import { title } from 'process';
 
 const app = express();
-const port = 5000;
+const PORT = 5000;
 //let the server know what directory we're working on
 const __dirname = path.resolve();
 //configure cors middleware
@@ -83,5 +83,9 @@ app.delete('/api/albums/:albumID', (req, res) => {
     }
 })
 //create endpoint for route '/' for homepage
+app.get('/', (req, res) => {
     //send response to open homepage of (future) 'index.html'
+    res.sendFile(path.join(__dirname, 'client', 'index.html'));
+}); 
 //start the server
+app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
