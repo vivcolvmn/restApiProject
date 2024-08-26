@@ -5,24 +5,59 @@ import cors from 'cors';
 import path from 'path';
 import albums from './albums.js';
 import pretty from 'express-prettify';
-import { title } from 'process';
+import { Pool } from 'pg';
+import dotenv from 'dotenv';
+dotenv.config();
 
 const app = express();
 const PORT = 5000;
+const passWord = process.env.PASSWORD
+
+const pool = new Pool({
+    user: 'vivcolvmn',
+    host: 'localhost',
+    database: 'music_library',
+    password: passWord,
+    port: 5432,
+});
+
+const loadInitialData = async () => {
+    try {
+        for (const album of albums) {
+            const { title, artist, year } = album;
+            await pool.query(
+                'INSERT INTO albums (title, artist, year) VALUES ($1, $2, $3)',
+                [title, artist, year]
+            );
+        }
+        console.log('Albums data loaded into the database');
+    } catch (err) {
+        console.error('Error loading initial data:', err);
+    }
+};
+
+loadInitialData();
+
 //let the server know what directory we're working on
 const __dirname = path.resolve();
 //configure cors middleware
 app.use(cors());
 //configure express-prettify middleware for working with JSON
-app.use(pretty({ query: 'pretty'}));
+app.use(pretty({ query: 'pretty' }));
 //configure body parser middleware
-app.use(bodyParser.urlencoded({ extended: false}));
+app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 //render static files from client folder
 app.use(express.static('client'));
 //create endpoint for route '/api/albums' that returns all the albums(GET request)
-app.get('/api/albums/', (req, res) => {
-    res.json(albums);
+app.get('/api/albums/', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM albums');
+        res.json(result.rows);
+      } catch (err) {
+        console.error(err);
+        res.status(500).json({ message: 'Internal server error' });
+      }
 });
 //create endpoint for route '/api/albums/:albumID' that returns the album with that id(GET request)
 app.get('/api/albums/:albumID', cors(), async (req, res) => {
@@ -86,6 +121,6 @@ app.delete('/api/albums/:albumID', (req, res) => {
 app.get('/', (req, res) => {
     //send response to open homepage of (future) 'index.html'
     res.sendFile(path.join(__dirname, 'client', 'index.html'));
-}); 
+});
 //start the server
 app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
