@@ -13,6 +13,7 @@ const __dirname = path.resolve();
 //configure cors middleware
 app.use(cors());
 //configure express-prettify middleware for working with JSON
+app.use(pretty({ query: 'pretty'}));
 //configure body parser middleware
 //render static files from client folder
 //create endpoint for route '/api/albums' that returns all the albums(GET request)
