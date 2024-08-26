@@ -24,8 +24,10 @@ app.get('/api/albums/', (req, res) => {
     res.json(albums);
 });
 //create endpoint for route '/api/albums/:albumID' that returns the album with that id(GET request)
+app.get('/api/albums/:albumID', cors(), async (req, res) => {
     //find the album by it's id
     //if album is found, return as JSON, otherwise return a 404 error
+});
 //create endpoint for route '/api/albums' that adds a new album(POST request)
     //generate new id by incrementing last album's id
     //create new album object using data sent in req body
