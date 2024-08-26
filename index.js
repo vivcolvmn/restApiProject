@@ -5,6 +5,7 @@ import cors from 'cors';
 import path from 'path';
 import albums from './albums.js';
 import pretty from 'express-prettify';
+import { title } from 'process';
 
 const app = express();
 const port = 5000;
@@ -38,9 +39,18 @@ app.get('/api/albums/:albumID', cors(), async (req, res) => {
 //create endpoint for route '/api/albums' that adds a new album(POST request)
 app.post('/api/albums', (req, res) => {
     //generate new id by incrementing last album's id
+    const newAlbumID = albums.length ? albums[albums.length - 1].id + 1 : 1;
     //create new album object using data sent in req body
+    const newAlbum = {
+        id: newAlbumID,
+        title: req.body.title,
+        artist: req.body.artist,
+        year: req.body.year
+    }
     //add new album to albums array
+    albums.push(newAlbum);
     //respond with newly created album
+    res.status(201).json(newAlbum);
 })
 //create endpoint for the route '/api/albums/:albumID' that updates existing album(PUT request)
     //find album by id
