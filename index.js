@@ -51,13 +51,23 @@ app.post('/api/albums', (req, res) => {
     albums.push(newAlbum);
     //respond with newly created album
     res.status(201).json(newAlbum);
-})
+});
 //create endpoint for the route '/api/albums/:albumID' that updates existing album(PUT request)
 app.put('/api/albums/:albumID', (req, res) => {
     //find album by id
+    const requestedAlbumID = parseInt(req.params.albumID);
+    const album = albums.find(a => a.id === requestedAlbumID);
     //if album found, update properties with data from req body
-    //repond with updated album, otherwise return 404 error
-})
+    if (album) {
+        album.title = req.body.title || album.title;
+        album.artist = req.body.artist || album.artist;
+        album.year = req.body.year || album.year;
+        //repond with updated album, otherwise return 404 error
+        res.json(album);
+    } else {
+        res.status(404).json({ message: 'Album not found'});
+    }
+});
 //create endpoint for route '/api/albums/:albumID' that deletes an album(DELETE request)
     //find index of album by id
     //if album found, remove from array
