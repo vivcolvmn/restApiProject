@@ -20,6 +20,9 @@ app.use(bodyParser.json());
 //render static files from client folder
 app.use(express.static('client'));
 //create endpoint for route '/api/albums' that returns all the albums(GET request)
+app.get('/api/albums/', (req, res) => {
+    res.json(albums);
+});
 //create endpoint for route '/api/albums/:albumID' that returns the album with that id(GET request)
     //find the album by it's id
     //if album is found, return as JSON, otherwise return a 404 error
