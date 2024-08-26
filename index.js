@@ -33,7 +33,7 @@ app.get('/api/albums/:albumID', cors(), async (req, res) => {
     if (album) {
         res.json(album);
     } else {
-        res.status(404).json({ message: 'Album not found'});
+        res.status(404).json({ message: 'Album not found' });
     }
 });
 //create endpoint for route '/api/albums' that adds a new album(POST request)
@@ -65,14 +65,22 @@ app.put('/api/albums/:albumID', (req, res) => {
         //repond with updated album, otherwise return 404 error
         res.json(album);
     } else {
-        res.status(404).json({ message: 'Album not found'});
+        res.status(404).json({ message: 'Album not found' });
     }
 });
 //create endpoint for route '/api/albums/:albumID' that deletes an album(DELETE request)
 app.delete('/api/albums/:albumID', (req, res) => {
     //find index of album by id
+    const requestedAlbumID = parseInt(req.params.albumID);
+    const albumIndex = albums.findIndex(a => a.id === requestedAlbumID);
     //if album found, remove from array
-    //repond with deleted album
+    if (albumIndex !== -1) {
+        //repond with deleted album
+        const deletedAlbum = albums.splice(albumIndex, 1);
+        res.json(deletedAlbum);
+    } else {
+        res.status(404).json({ message: 'Album not found' })
+    }
 })
 //create endpoint for route '/' for homepage
     //send response to open homepage of (future) 'index.html'
