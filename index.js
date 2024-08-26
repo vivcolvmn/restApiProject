@@ -36,10 +36,12 @@ app.get('/api/albums/:albumID', cors(), async (req, res) => {
     }
 });
 //create endpoint for route '/api/albums' that adds a new album(POST request)
+app.post('/api/albums', (req, res) => {
     //generate new id by incrementing last album's id
     //create new album object using data sent in req body
     //add new album to albums array
     //respond with newly created album
+})
 //create endpoint for the route '/api/albums/:albumID' that updates existing album(PUT request)
     //find album by id
     //if album found, update properties with data from req body
